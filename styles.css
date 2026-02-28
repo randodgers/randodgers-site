@@ -84,7 +84,7 @@ h2, h3 {
 .cta-row { display: flex; gap: .75rem; margin: 1.3rem 0 .3rem; flex-wrap: wrap; }
 .btn {
   background: var(--cyan);
-  color: #04131a;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 700;
   padding: .78rem 1rem;
