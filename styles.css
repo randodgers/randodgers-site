@@ -1,12 +1,12 @@
 :root {
-  --bg: #f7f6f2;
+  --bg: #f3f5f4;
   --surface: #ffffff;
   --text: #111111;
   --muted: #4b5563;
   --line: #e5e7eb;
-  --cyan: #21d4fd;
-  --pink: #ff5da2;
-  --lime: #c7ff3d;
+  --cyan: #004c54;
+  --pink: #5a6b73;
+  --lime: #a5acaf;
 }
 * { box-sizing: border-box; }
 body {
@@ -64,11 +64,11 @@ nav a:hover::after { width: 100%; }
 .hero {
   padding: 5rem 0 3.5rem;
   background:
-    radial-gradient(900px 300px at 5% -8%, #e9f8ff 0, transparent 70%),
-    radial-gradient(700px 240px at 92% -10%, #ffe8f4 0, transparent 70%);
+    radial-gradient(900px 300px at 5% -8%, #dfe9e7 0, transparent 70%),
+    radial-gradient(700px 240px at 92% -10%, #e7ebec 0, transparent 70%);
 }
 .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items: start; }
-.eyebrow { color: #b11f67; font-weight: 700; margin: 0 0 .6rem; }
+.eyebrow { color: #004c54; font-weight: 700; margin: 0 0 .6rem; }
 h1 {
   font-family: "Space Grotesk", Inter, sans-serif;
   font-size: clamp(2rem, 5vw, 4.2rem);
@@ -109,22 +109,22 @@ h2, h3 {
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
 .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1rem; margin-top: 1rem; }
-.cards .card:nth-child(1) { border-top: 3px solid var(--cyan); }
-.cards .card:nth-child(2) { border-top: 3px solid var(--pink); }
-.cards .card:nth-child(3) { border-top: 3px solid var(--lime); }
-.cards .card:nth-child(4) { border-top: 3px solid #d1d5db; }
+.cards .card:nth-child(1) { border-top: 3px solid #004c54; }
+.cards .card:nth-child(2) { border-top: 3px solid #2f4f53; }
+.cards .card:nth-child(3) { border-top: 3px solid #5a6b73; }
+.cards .card:nth-child(4) { border-top: 3px solid #a5acaf; }
 .pill {
   display: inline-block;
   font-size: .76rem;
   padding: .22rem .55rem;
   border-radius: 999px;
-  background: #f2fbff;
-  color: #0e7490;
+  background: #e7efee;
+  color: #00353b;
   font-weight: 700;
 }
 .price { font-size: 1.14rem; font-weight: 800; margin: .8rem 0; }
 .section-dark {
-  background: #0f1115;
+  background: #0f1718;
   color: #eef2f7;
 }
 .section-dark .section-head p { color: #c5ced8; }
@@ -143,7 +143,7 @@ h2, h3 {
   flex-wrap: wrap;
 }
 .contact-form { display: block; }
-a { color: #0f6db8; }
+a { color: #004c54; }
 a:hover { opacity: .9; }
 p { line-height: 1.62; }
 .site-footer { border-top: 1px solid var(--line); padding: 1.4rem 0; }
