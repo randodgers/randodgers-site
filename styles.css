@@ -180,6 +180,8 @@ h2, h3 {
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
 .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1rem; margin-top: 1rem; }
+.cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cards-contact { grid-template-columns: 1fr 1.1fr; align-items: start; }
 .cards .card:nth-child(1) { border-top: 3px solid #004c54; }
 .cards .card:nth-child(2) { border-top: 3px solid #2f4f53; }
 .cards .card:nth-child(3) { border-top: 3px solid #5a6b73; }
@@ -214,6 +216,12 @@ h2, h3 {
   flex-wrap: wrap;
 }
 .contact-form { display: block; }
+
+@media (max-width: 900px) {
+  .cards-3,
+  .cards-contact { grid-template-columns: 1fr; }
+}
+
 a { color: #004c54; }
 a:hover { opacity: .9; }
 p { line-height: 1.62; }
