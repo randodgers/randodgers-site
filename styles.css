@@ -193,7 +193,7 @@ h2, h3 {
   gap: .62rem;
   min-height: 100%;
 }
-.offer-head { display: grid; gap: .35rem; }
+.offer-head { display: grid; gap: .5rem; }
 .offer-title { margin: 0; line-height: 1.25; }
 .offer-head .pill { margin: 0; }
 .offer-desc {
