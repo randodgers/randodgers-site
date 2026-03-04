@@ -123,8 +123,8 @@ h2, h3 {
   letter-spacing: .03em;
   box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
-.sticker:nth-child(2) { background: #cdd9dc; transform: rotate(-2deg); }
-.sticker:nth-child(3) { background: #dde2e4; transform: rotate(2deg); }
+.sticker:nth-child(2) { background: #cdd9dc; }
+.sticker:nth-child(3) { background: #dde2e4; }
 .cta-row { display: flex; gap: .75rem; margin: 1.3rem 0 .3rem; flex-wrap: wrap; }
 .btn {
   background: var(--cyan);
@@ -149,7 +149,6 @@ h2, h3 {
   position: relative;
   z-index: 1;
   margin-top: 2rem;
-  transform: rotate(-1.2deg);
   background: #12393d;
   color: #e8f2f2;
   border-top: 2px solid #385f63;
@@ -570,8 +569,8 @@ pre {
   padding: .26rem .5rem;
   background: #d7e3e2;
 }
-.v3-badges span:nth-child(2) { transform: rotate(-2deg); }
-.v3-badges span:nth-child(3) { transform: rotate(2deg); }
+.v3-badges span:nth-child(2) { transform: none; }
+.v3-badges span:nth-child(3) { transform: none; }
 .v3-grid { margin-top: .9rem; display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
 .v3-panel {
   background: #fff;
