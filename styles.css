@@ -190,18 +190,22 @@ h2, h3 {
 .offer-card {
   display: grid;
   grid-template-rows: auto 1fr auto auto;
-  gap: .45rem;
+  gap: .62rem;
   min-height: 100%;
 }
-.offer-head { display: grid; gap: .25rem; }
+.offer-head { display: grid; gap: .35rem; }
 .offer-title { margin: 0; line-height: 1.25; }
 .offer-head .pill { margin: 0; }
-.offer-desc { margin: 0; }
+.offer-desc {
+  margin: 0;
+  line-height: 1.72;
+}
 ul.offer-desc {
   margin: 0;
   padding-left: 1rem;
+  line-height: 1.72;
 }
-ul.offer-desc li { margin: .16rem 0; }
+ul.offer-desc li { margin: .24rem 0; }
 .offer-price {
   margin: .2rem 0 0;
   align-self: end;
@@ -209,7 +213,7 @@ ul.offer-desc li { margin: .16rem 0; }
 .offer-cta {
   margin: 0;
   padding-top: .35rem;
-  padding-bottom: .2rem;
+  padding-bottom: .35rem;
 }
 .pill {
   display: inline-block;
