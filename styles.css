@@ -187,11 +187,13 @@ h2, h3 {
 .cards .card:nth-child(3) { border-top: 3px solid #5a6b73; }
 .cards .card:nth-child(4) { border-top: 3px solid #a5acaf; }
 
-.cards-templates .card {
+.cards-templates .card,
+.cards-services .card {
   display: flex;
   flex-direction: column;
 }
-.cards-templates .card > p:last-child {
+.cards-templates .card > p:last-child,
+.cards-services .card > p:last-child {
   margin-top: auto;
 }
 .pill {
