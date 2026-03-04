@@ -187,40 +187,28 @@ h2, h3 {
 .cards .card:nth-child(3) { border-top: 3px solid #5a6b73; }
 .cards .card:nth-child(4) { border-top: 3px solid #a5acaf; }
 
-.cards-templates .card,
-.cards-services .card {
-  display: flex;
-  flex-direction: column;
+.offer-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
   gap: .45rem;
   min-height: 100%;
 }
-.cards-templates .card h3,
-.cards-services .card h3 {
+.offer-head { display: grid; gap: .25rem; }
+.offer-title { margin: 0; line-height: 1.25; }
+.offer-head .pill { margin: 0; }
+.offer-desc { margin: 0; }
+ul.offer-desc {
   margin: 0;
-  line-height: 1.25;
+  padding-left: 1rem;
 }
-.cards-templates .card .pill {
-  margin: 0 0 .15rem;
+ul.offer-desc li { margin: .16rem 0; }
+.offer-price {
+  margin: .2rem 0 0;
+  align-self: end;
 }
-.cards-templates .card p,
-.cards-services .card p {
+.offer-cta {
   margin: 0;
-}
-.cards-templates .card .price,
-.cards-services .card .price {
-  margin: .35rem 0 .15rem;
-}
-.cards-services .card ul {
-  margin: .1rem 0 .15rem 1rem;
-  padding: 0;
-}
-.cards-services .card li {
-  margin: .18rem 0;
-}
-.cards-templates .card > p:last-child,
-.cards-services .card > p:last-child {
-  margin-top: auto;
-  padding-top: .4rem;
+  padding-top: .35rem;
 }
 .pill {
   display: inline-block;
