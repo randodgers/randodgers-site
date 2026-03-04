@@ -191,10 +191,36 @@ h2, h3 {
 .cards-services .card {
   display: flex;
   flex-direction: column;
+  gap: .45rem;
+  min-height: 100%;
+}
+.cards-templates .card h3,
+.cards-services .card h3 {
+  margin: 0;
+  line-height: 1.25;
+}
+.cards-templates .card .pill {
+  margin: 0 0 .15rem;
+}
+.cards-templates .card p,
+.cards-services .card p {
+  margin: 0;
+}
+.cards-templates .card .price,
+.cards-services .card .price {
+  margin: .35rem 0 .15rem;
+}
+.cards-services .card ul {
+  margin: .1rem 0 .15rem 1rem;
+  padding: 0;
+}
+.cards-services .card li {
+  margin: .18rem 0;
 }
 .cards-templates .card > p:last-child,
 .cards-services .card > p:last-child {
   margin-top: auto;
+  padding-top: .4rem;
 }
 .pill {
   display: inline-block;
