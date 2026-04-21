@@ -707,10 +707,14 @@ pre {
 }
 .v3-proof-item strong { font-size: .92rem; }
 .v3-proof-item span { color: #41555a; font-size: .9rem; }
+.v3-strip-outer {
+  max-width: 1160px;
+  margin: .6rem auto;
+  padding: 0 1rem;
+}
 .v3-strip {
-  margin-top: .9rem;
-  border-top: 2px solid #2c5358;
-  border-bottom: 2px solid #2c5358;
+  border: 2px solid #2c5358;
+  border-radius: 999px;
   background: #12393d;
   color: #e7f1f0;
   overflow: hidden;
