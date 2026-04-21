@@ -49,11 +49,11 @@
       <div class="v3-hero-layout">
         <div class="v3-hero-copy">
           <div class="v3-kicker">AI + MARKETING AUTOMATION</div>
-          <h1>Operator-grade n8n systems that ship outcomes — not demo theater.</h1>
-          <p>Production-ready templates, setup docs, and implementation support for teams that need reliable GTM automation.</p>
+          <h1>Enterprise-grade AI systems that ship outcomes</h1>
+          <p>Claude instances, AI agents, and automation systems configured for your stack and live fast.</p>
           <div class="v3-cta-row">
-            <a class="btn" href="templates.html">Browse Templates</a>
-            <a class="btn btn-ghost" href="services.html">Work With Me</a>
+            <a class="btn" href="contact.html">Book a Scope Call</a>
+            <a class="btn btn-ghost" href="services.html">See Services</a>
           </div>
 
         </div>
@@ -61,20 +61,20 @@
           <div class="v3-hero-glow"></div>
           <div class="v3-hero-stack">
             <div class="v3-hero-stat">
-              <strong>Operator Build Pattern</strong>
-              <span>Map → Build → Release Gate → Optimize</span>
+              <strong>What I Deploy</strong>
+              <span>Claude basics &amp; advanced · n8n agents · OpenClaw setups</span>
             </div>
             <div class="v3-hero-stat">
-              <strong>Current Focus</strong>
-              <span>Shipping sellable template assets + retainer offers.</span>
+              <strong>Typical Timeline</strong>
+              <span>Scoped, built, and live in under 48 hours</span>
             </div>
             <div class="v3-hero-stat">
-              <strong>Proof Metric</strong>
-              <span>12 production automation systems shipped.</span>
+              <strong>Most Requested</strong>
+              <span>Claude instance setup + Slack/CRM integration</span>
             </div>
             <div class="v3-hero-stat">
-              <strong>Mini CTA</strong>
-              <span><a href="templates.html">See current build log →</a></span>
+              <strong>Ready to Build?</strong>
+              <span><a href="contact.html">Book a 30-min scope call →</a></span>
             </div>
           </div>
         </div>
@@ -130,39 +130,32 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Live AI news ticker — fetches RSS via CORS proxy + parses XML directly.
-    // Falls back to static items silently if feeds are unreachable.
-    (async function loadAINews() {
-      const feeds = [
-        { url: 'https://feeds.arstechnica.com/arstechnica/technology-lab', tag: 'ARS TECHNICA' },
-        { url: 'https://www.technologyreview.com/feed/',                    tag: 'MIT TECH'    },
-      ];
+    // Ticker — driven by a Google Sheet published as CSV.
+    // To update ticker items, just edit the sheet. No code changes needed.
+    // Sheet format: column A header = "text", one item per row below.
+    (async function loadTickerFromSheet() {
+      const CSV_URL = 'YOUR_GOOGLE_SHEET_CSV_URL'; // replace after publishing sheet
 
-      const headlines = [];
+      if (CSV_URL.startsWith('YOUR_')) return; // not configured yet
 
-      for (const feed of feeds) {
-        try {
-          const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(feed.url);
-          const res = await fetch(proxy, { signal: AbortSignal.timeout(5000) });
-          if (!res.ok) { console.warn('Ticker:', feed.tag, res.status); continue; }
-          const data = await res.json();
-          if (!data.contents) continue;
-          const xml = new DOMParser().parseFromString(data.contents, 'text/xml');
-          Array.from(xml.querySelectorAll('item')).slice(0, 2).forEach(function(item) {
-            const title = item.querySelector('title')?.textContent?.trim();
-            if (title) headlines.push('🔥 ' + feed.tag + ': ' + title.toUpperCase());
-          });
-          console.log('Ticker ok:', feed.tag, headlines.length + ' headlines so far');
-        } catch(e) { console.warn('Ticker failed:', feed.tag, e.message); }
-      }
+      try {
+        const res = await fetch(CSV_URL, { signal: AbortSignal.timeout(5000) });
+        if (!res.ok) { console.warn('Ticker: sheet fetch failed', res.status); return; }
+        const text = await res.text();
+        const items = text.split('\n')
+          .slice(1)                              // skip header row
+          .map(function(r) { return r.replace(/^"|"$/g, '').trim(); }) // strip CSV quotes
+          .filter(function(r) { return r.length > 0; });
 
-      if (headlines.length === 0) { console.log('Ticker: no headlines, showing static items.'); return; }
+        if (items.length === 0) { console.log('Ticker: sheet empty, showing static items.'); return; }
 
-      const prefix = headlines.join(' · ') + ' · ';
-      ['ticker-a', 'ticker-b'].forEach(function(id) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = prefix + el.textContent;
-      });
+        const prefix = items.map(function(i) { return i.toUpperCase(); }).join(' · ') + ' · ';
+        ['ticker-a', 'ticker-b'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = prefix + el.textContent;
+        });
+        console.log('Ticker: loaded', items.length, 'items from sheet.');
+      } catch(e) { console.warn('Ticker: sheet error —', e.message); }
     })();
   </script>
 </body>
