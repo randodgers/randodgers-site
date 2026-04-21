@@ -38,14 +38,122 @@
     <div class="container">
       <div class="section-head"><h1>Automation Retainers</h1><p>Booking + contract flow will be added soon. For now, contact Dan directly for fit + availability.</p></div>
       <div class="cards cards-3 cards-services">
-        <article class="card offer-card"><div class="offer-head"><h3 class="offer-title">Launch Pad</h3></div><ul class="offer-desc"><li>1 workflow/month</li><li>Optimization pass</li><li>Monthly KPI report</li></ul><p class="price offer-price">$2k–$3.5k/mo</p><p class="offer-cta"><a class="btn" href="contact.html">Contact</a></p></article>
-        <article class="card offer-card"><div class="offer-head"><h3 class="offer-title">Growth Engine</h3></div><ul class="offer-desc"><li>2–3 workflows/month</li><li>Priority SLA</li><li>Roadmap strategy call</li></ul><p class="price offer-price">$4k–$7k/mo</p><p class="offer-cta"><a class="btn" href="contact.html">Contact</a></p></article>
-        <article class="card offer-card"><div class="offer-head"><h3 class="offer-title">GTM Autopilot</h3></div><ul class="offer-desc"><li>Multi-agent systems</li><li>Weekly ops sync</li><li>Executive reporting</li></ul><p class="price offer-price">$8k+/mo</p><p class="offer-cta"><a class="btn" href="contact.html">Contact</a></p></article>
+        <article class="card offer-card"><div class="offer-head"><h3 class="offer-title">Launch Pad</h3></div><ul class="offer-desc"><li>1 workflow/month</li><li>Optimization pass</li><li>Monthly KPI report</li></ul><p class="price offer-price">$2k–$3.5k/mo</p><p class="offer-cta"><button class="btn offer-cta-btn" data-service="Launch Pad" data-action="https://formspree.io/f/xeevlbjg">Contact</button></p></article>
+        <article class="card offer-card"><div class="offer-head"><h3 class="offer-title">Growth Engine</h3></div><ul class="offer-desc"><li>2–3 workflows/month</li><li>Priority SLA</li><li>Roadmap strategy call</li></ul><p class="price offer-price">$4k–$7k/mo</p><p class="offer-cta"><button class="btn offer-cta-btn" data-service="Growth Engine" data-action="https://formspree.io/f/mojynoaw">Contact</button></p></article>
+        <article class="card offer-card"><div class="offer-head"><h3 class="offer-title">GTM Autopilot</h3></div><ul class="offer-desc"><li>Multi-agent systems</li><li>Weekly ops sync</li><li>Executive reporting</li></ul><p class="price offer-price">$8k+/mo</p><p class="offer-cta"><button class="btn offer-cta-btn" data-service="GTM Autopilot" data-action="https://formspree.io/f/xpqkjgaj">Contact</button></p></article>
       </div>
     </div>
   </main>
 
   <footer class="site-footer"><div class="container footer-grid"><p>© <span id="year"></span> Dan Rodgers</p><p><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p></div></footer>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+
+  <!-- Service Contact Modal -->
+  <div class="modal-overlay" id="service-modal" role="dialog" aria-modal="true" aria-labelledby="service-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="service-modal-title">Get Started</h3>
+        <button class="modal-close" id="close-service-modal" aria-label="Close">&#x2715;</button>
+      </div>
+
+      <form id="service-form" action="" method="POST">
+        <div class="form-group">
+          <label for="sf-name">Your Name</label>
+          <input class="form-input" type="text" id="sf-name" name="name" placeholder="Jane Smith" required />
+        </div>
+        <div class="form-group">
+          <label for="sf-email">Email Address</label>
+          <input class="form-input" type="email" id="sf-email" name="email" placeholder="jane@company.com" required />
+        </div>
+        <div class="form-group">
+          <label for="sf-message">Message</label>
+          <textarea class="form-input textarea" id="sf-message" name="message" placeholder="Tell me about your goals and timeline." required></textarea>
+        </div>
+        <button class="form-submit" type="submit">Send Message</button>
+        <p class="form-note">I typically reply within one business day.</p>
+      </form>
+
+      <div class="modal-success" id="service-modal-success">
+        <div class="success-icon">✓</div>
+        <h4>Message sent!</h4>
+        <p>Thanks for reaching out. I'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const modal    = document.getElementById('service-modal');
+    const title    = document.getElementById('service-modal-title');
+    const closeBtn = document.getElementById('close-service-modal');
+    const form     = document.getElementById('service-form');
+    const success  = document.getElementById('service-modal-success');
+
+    function openModal(serviceName, actionUrl) {
+      title.textContent = serviceName + ' — Get Started';
+      form.action = actionUrl;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => closeBtn.focus(), 50);
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.offer-cta-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        openModal(btn.dataset.service, btn.dataset.action);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+          form.reset();
+        } else {
+          btn.textContent = 'Try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    });
+
+    modal.addEventListener('transitionend', function() {
+      if (!modal.classList.contains('open')) {
+        form.style.display = '';
+        success.style.display = 'none';
+        const btn = form.querySelector('.form-submit');
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
