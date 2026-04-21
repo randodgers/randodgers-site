@@ -564,7 +564,7 @@ pre {
 }
 .v3-hero-layout {
   display: grid;
-  grid-template-columns: 1.4fr .9fr;
+  grid-template-columns: 1.4fr .9fr 200px;
   gap: 1rem;
   align-items: stretch;
   position: relative;
@@ -654,7 +654,7 @@ pre {
 }
 .v3-badges span:nth-child(2) { transform: none; }
 .v3-badges span:nth-child(3) { transform: none; }
-.v3-grid { margin-top: .9rem; display: grid; grid-template-columns: 1fr 220px; gap: 10px; }
+.v3-grid { margin-top: .9rem; display: grid; grid-template-columns: 1fr; gap: 10px; }
 .v3-panel {
   background: #fff;
   border: 1px solid #c7d2d6;
@@ -775,6 +775,7 @@ pre {
   .v3-status { justify-self: start; }
   .v3-nav { justify-self: start; }
   .v3-hero-layout { grid-template-columns: 1fr; }
+  .v3-about-card { flex-direction: row; flex-wrap: wrap; align-items: center; }
   .v3-hero-visual { min-height: 180px; }
   .v3-grid { grid-template-columns: 1fr; }
   .v3-about-card { flex-direction: row; flex-wrap: wrap; align-items: center; }
