@@ -782,6 +782,84 @@ pre {
   .v3-bottom { flex-direction: column; align-items: flex-start; }
 }
 
+/* ── About / Credibility Strip ────────────────────────────── */
+.v3-about-strip { margin: .9rem 0; }
+.v3-about-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.v3-about-profile {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+.v3-about-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--line);
+  flex-shrink: 0;
+}
+.v3-about-name {
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+.v3-about-title {
+  font-size: .82rem;
+  color: var(--muted);
+  margin-top: .15rem;
+}
+.v3-about-location {
+  font-size: .76rem;
+  color: #9ca3af;
+  margin-top: .1rem;
+}
+.v3-about-employers {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.v3-about-employers-label {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.v3-about-logos {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  flex-wrap: wrap;
+}
+.v3-employer-badge {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  background: #f3f5f4;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .28rem .6rem .28rem .4rem;
+}
+.v3-employer-badge img {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+.v3-employer-badge span {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
 /* ── Contact Modal ─────────────────────────────────────────── */
 .modal-overlay {
   display: none;
