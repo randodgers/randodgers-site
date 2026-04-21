@@ -130,31 +130,33 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Live AI news ticker — fetches latest headlines from Anthropic + OpenAI blogs.
-    // Falls back silently to static items if feeds are unreachable.
+    // Live AI news ticker — fetches RSS via CORS proxy + parses XML directly.
+    // Falls back to static items silently if feeds are unreachable.
     (async function loadAINews() {
       const feeds = [
-        { url: 'https://www.anthropic.com/rss.xml',  tag: 'ANTHROPIC' },
-        { url: 'https://openai.com/blog/rss.xml',    tag: 'OPENAI'    },
+        { url: 'https://feeds.arstechnica.com/arstechnica/technology-lab', tag: 'ARS TECHNICA' },
+        { url: 'https://www.technologyreview.com/feed/',                    tag: 'MIT TECH'    },
       ];
 
       const headlines = [];
 
       for (const feed of feeds) {
         try {
-          const apiUrl = 'https://api.rss2json.com/v1/api.json?count=2&rss_url=' + encodeURIComponent(feed.url);
-          const res = await fetch(apiUrl, { signal: AbortSignal.timeout(5000) });
-          if (!res.ok) continue;
+          const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(feed.url);
+          const res = await fetch(proxy, { signal: AbortSignal.timeout(5000) });
+          if (!res.ok) { console.warn('Ticker:', feed.tag, res.status); continue; }
           const data = await res.json();
-          if (data.status === 'ok' && Array.isArray(data.items)) {
-            data.items.slice(0, 2).forEach(function(item) {
-              headlines.push('🔥 ' + feed.tag + ': ' + item.title.toUpperCase());
-            });
-          }
-        } catch { /* silent fallback */ }
+          if (!data.contents) continue;
+          const xml = new DOMParser().parseFromString(data.contents, 'text/xml');
+          Array.from(xml.querySelectorAll('item')).slice(0, 2).forEach(function(item) {
+            const title = item.querySelector('title')?.textContent?.trim();
+            if (title) headlines.push('🔥 ' + feed.tag + ': ' + title.toUpperCase());
+          });
+          console.log('Ticker ok:', feed.tag, headlines.length + ' headlines so far');
+        } catch(e) { console.warn('Ticker failed:', feed.tag, e.message); }
       }
 
-      if (headlines.length === 0) return;
+      if (headlines.length === 0) { console.log('Ticker: no headlines, showing static items.'); return; }
 
       const prefix = headlines.join(' · ') + ' · ';
       ['ticker-a', 'ticker-b'].forEach(function(id) {
