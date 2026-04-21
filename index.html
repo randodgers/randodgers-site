@@ -35,6 +35,15 @@
     </div>
   </header>
 
+  <div class="v3-strip-outer">
+    <section class="v3-strip" aria-label="AI news ticker">
+      <div class="v3-strip-track" id="ticker-track">
+        <span id="ticker-a">WORKFLOW CULTURE · SHIP WEEKLY · SYSTEMS OVER HYPE · CONVERSION FIRST · BUILT IN PUBLIC · N8N + AI · NO AI SLOP ·&nbsp;</span>
+        <span id="ticker-b" aria-hidden="true">WORKFLOW CULTURE · SHIP WEEKLY · SYSTEMS OVER HYPE · CONVERSION FIRST · BUILT IN PUBLIC · N8N + AI · NO AI SLOP ·&nbsp;</span>
+      </div>
+    </section>
+  </div>
+
   <main class="v3-wrap">
     <section class="v3-hero">
       <div class="v3-hero-layout">
@@ -111,12 +120,6 @@
       <div class="v3-proof-item"><strong>Weekly iteration</strong><span>Ship, measure, tune, repeat.</span></div>
     </section>
 
-    <section class="v3-strip" aria-label="Operator banner ticker">
-      <div class="v3-strip-track">
-        <span>WORKFLOW CULTURE · SHIP WEEKLY · SYSTEMS OVER HYPE · CONVERSION FIRST · BUILT IN PUBLIC · N8N + AI · NO AI SLOP ·</span>
-        <span aria-hidden="true">WORKFLOW CULTURE · SHIP WEEKLY · SYSTEMS OVER HYPE · CONVERSION FIRST · BUILT IN PUBLIC · N8N + AI · NO AI SLOP ·</span>
-      </div>
-    </section>
   </main>
 
   <footer class="v3-footer">
@@ -124,6 +127,41 @@
     <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="https://x.com/dannyclawd" target="_blank" rel="noopener">X</a> · <a href="https://www.linkedin.com/in/rodgersdaniel" target="_blank" rel="noopener">LinkedIn</a></span>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Live AI news ticker — fetches latest headlines from Anthropic + OpenAI blogs.
+    // Falls back silently to static items if feeds are unreachable.
+    (async function loadAINews() {
+      const feeds = [
+        { url: 'https://www.anthropic.com/rss.xml',  tag: 'ANTHROPIC' },
+        { url: 'https://openai.com/blog/rss.xml',    tag: 'OPENAI'    },
+      ];
+
+      const headlines = [];
+
+      for (const feed of feeds) {
+        try {
+          const apiUrl = 'https://api.rss2json.com/v1/api.json?count=2&rss_url=' + encodeURIComponent(feed.url);
+          const res = await fetch(apiUrl, { signal: AbortSignal.timeout(5000) });
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (data.status === 'ok' && Array.isArray(data.items)) {
+            data.items.slice(0, 2).forEach(function(item) {
+              headlines.push('🔥 ' + feed.tag + ': ' + item.title.toUpperCase());
+            });
+          }
+        } catch { /* silent fallback */ }
+      }
+
+      if (headlines.length === 0) return;
+
+      const prefix = headlines.join(' · ') + ' · ';
+      ['ticker-a', 'ticker-b'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = prefix + el.textContent;
+      });
+    })();
+  </script>
 </body>
 </html>
