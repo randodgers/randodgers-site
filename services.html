@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
 </head>
 <body>
   <header class="v3-header">
@@ -49,36 +50,56 @@
 
   <!-- Service Contact Modal -->
   <div class="modal-overlay" id="service-modal" role="dialog" aria-modal="true" aria-labelledby="service-modal-title">
-    <div class="modal">
+    <div class="modal modal--wide">
       <div class="modal-header">
         <h3 id="service-modal-title">Get Started</h3>
         <button class="modal-close" id="close-service-modal" aria-label="Close">&#x2715;</button>
       </div>
 
-      <form id="service-form" action="" method="POST">
-        <div class="form-group">
-          <label for="sf-name">Your Name</label>
-          <input class="form-input" type="text" id="sf-name" name="name" placeholder="Jane Smith" required />
-        </div>
-        <div class="form-group">
-          <label for="sf-email">Email Address</label>
-          <input class="form-input" type="email" id="sf-email" name="email" placeholder="jane@company.com" required />
-        </div>
-        <div class="form-group">
-          <label for="sf-message">Message</label>
-          <textarea class="form-input textarea" id="sf-message" name="message" placeholder="Tell me about your goals and timeline." required></textarea>
-        </div>
-        <button class="form-submit" type="submit">Send Message</button>
-        <p class="form-note">I typically reply within one business day.</p>
-      </form>
+      <!-- Tabs -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="calendar">Book a Call</button>
+        <button class="modal-tab" data-tab="message">Send a Message</button>
+      </div>
 
-      <div class="modal-success" id="service-modal-success">
-        <div class="success-icon">✓</div>
-        <h4>Message sent!</h4>
-        <p>Thanks for reaching out. I'll be in touch soon.</p>
+      <!-- Calendar tab -->
+      <div class="modal-tab-panel active" id="tab-calendar">
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/randodgers/30min?primary_color=004c54&hide_event_type_details=1&hide_gdpr_banner=1"
+          style="min-width:320px;height:580px;">
+        </div>
+      </div>
+
+      <!-- Message tab -->
+      <div class="modal-tab-panel" id="tab-message">
+        <form id="service-form" action="" method="POST">
+          <div class="form-group">
+            <label for="sf-name">Your Name</label>
+            <input class="form-input" type="text" id="sf-name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="sf-email">Email Address</label>
+            <input class="form-input" type="email" id="sf-email" name="email" placeholder="jane@company.com" required />
+          </div>
+          <div class="form-group">
+            <label for="sf-message">Message</label>
+            <textarea class="form-input textarea" id="sf-message" name="message" placeholder="Tell me about your goals and timeline." required></textarea>
+          </div>
+          <button class="form-submit" type="submit">Send Message</button>
+          <p class="form-note">I typically reply within one business day.</p>
+        </form>
+
+        <div class="modal-success" id="service-modal-success">
+          <div class="success-icon">✓</div>
+          <h4>Message sent!</h4>
+          <p>Thanks for reaching out. I'll be in touch soon.</p>
+        </div>
       </div>
     </div>
   </div>
+
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -89,9 +110,24 @@
     const form     = document.getElementById('service-form');
     const success  = document.getElementById('service-modal-success');
 
+    // Tab switching
+    document.querySelectorAll('.modal-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.modal-tab-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
     function openModal(serviceName, actionUrl) {
       title.textContent = serviceName + ' — Get Started';
       form.action = actionUrl;
+      // Always open on the calendar tab
+      document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.modal-tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelector('[data-tab="calendar"]').classList.add('active');
+      document.getElementById('tab-calendar').classList.add('active');
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
       setTimeout(() => closeBtn.focus(), 50);
@@ -145,6 +181,7 @@
       }
     });
 
+    // Reset form when modal closes
     modal.addEventListener('transitionend', function() {
       if (!modal.classList.contains('open')) {
         form.style.display = '';
@@ -152,6 +189,7 @@
         const btn = form.querySelector('.form-submit');
         btn.textContent = 'Send Message';
         btn.disabled = false;
+        form.reset();
       }
     });
   </script>
