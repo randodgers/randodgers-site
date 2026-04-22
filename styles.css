@@ -672,6 +672,17 @@ pre {
 }
 .v3-card p { margin: .3rem 0 .45rem; color: #47575b; font-size: .93rem; }
 .v3-card a { font-weight: 700; text-decoration: none; }
+.v3-coming-soon {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #6b7280;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: .2rem .55rem;
+}
 .v3-card-icon {
   width: 28px;
   height: 28px;
